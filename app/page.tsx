@@ -1,11 +1,4 @@
-"use client";
-import { signIn } from "next-auth/react";
-
 const Home = () => {
-	return (
-		<button className="bg-cyan-300" onClick={() => signIn("google")}>
-			Shop Ease
-		</button>
-	);
+	return <div>Home</div>;
 };
 export default Home;
