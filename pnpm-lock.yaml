@@ -14,6 +14,9 @@ importers:
       '@prisma/client':
         specifier: ^5.17.0
         version: 5.17.0(prisma@5.17.0)
+      '@stripe/stripe-js':
+        specifier: ^4.1.0
+        version: 4.1.0
       next:
         specifier: 15.0.0-rc.0
         version: 15.0.0-rc.0(react-dom@19.0.0-rc-01172397-20240716(react@19.0.0-rc-01172397-20240716))(react@19.0.0-rc-01172397-20240716)
@@ -328,6 +331,10 @@ packages:
 
   '@prisma/get-platform@5.17.0':
     resolution: {integrity: sha512-UlDgbRozCP1rfJ5Tlkf3Cnftb6srGrEQ4Nm3og+1Se2gWmCZ0hmPIi+tQikGDUVLlvOWx3Gyi9LzgRP+HTXV9w==}
+
+  '@stripe/stripe-js@4.1.0':
+    resolution: {integrity: sha512-HhstGRUz/4JdbZpb26OcOf8Qb/cFR02arvHvgz4sPFLSnI6ZNHC53Jc6JP/FGNwxtrF719YyUnK0gGy4oyhucQ==}
+    engines: {node: '>=12.16'}
 
   '@swc/helpers@0.5.11':
     resolution: {integrity: sha512-YNlnKRWF2sVojTpIyzwou9XoTNbzbzONwRhOoniEioF1AtaitTvVZblaQRrAzChWQ1bLYyYSWzM18y4WwgzJ+A==}
@@ -1137,6 +1144,8 @@ snapshots:
   '@prisma/get-platform@5.17.0':
     dependencies:
       '@prisma/debug': 5.17.0
+
+  '@stripe/stripe-js@4.1.0': {}
 
   '@swc/helpers@0.5.11':
     dependencies:
