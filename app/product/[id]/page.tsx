@@ -23,7 +23,7 @@ const ProductDetails = ({ searchParams }: Props) => {
 						{priceFormatter(price)}
 					</p>
 				</div>
-				<button className="text-white my-12 font-medium px-7 py-2 rounded-full bg-teal-400 self-start hover:opacity-70">
+				<button className="w-full text-white my-12 font-medium px-7 py-2 rounded-lg bg-sky-500 self-start hover:opacity-70">
 					Add to cart
 				</button>
 			</div>

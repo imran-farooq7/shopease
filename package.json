@@ -16,7 +16,9 @@
 		"next-auth": "5.0.0-beta.19",
 		"react": "19.0.0-rc-01172397-20240716",
 		"react-dom": "19.0.0-rc-01172397-20240716",
-		"stripe": "^16.2.0"
+		"react-icons": "^5.2.1",
+		"stripe": "^16.2.0",
+		"zustand": "^4.5.4"
 	},
 	"devDependencies": {
 		"@types/node": "^20",
