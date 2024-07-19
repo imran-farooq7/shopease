@@ -12,9 +12,10 @@ const getProducts = async () => {
 			return {
 				id: product.id,
 				name: product.name,
-				price: prices.data[0].unit_amount_decimal,
+				price: prices.data[0].unit_amount! / 100,
 				image: product.images[0],
 				currency: prices.data[0].currency,
+				description: product.description,
 			};
 		})
 	);
@@ -24,11 +25,11 @@ const getProducts = async () => {
 const Home = async () => {
 	const products = await getProducts();
 	return (
-		<div>
+		<main className="grid grid-cols-fluid gap-12 justify-items-center md:justify-items-start mt-6">
 			{products.map((product) => (
 				<Product product={product} key={product.id} />
 			))}
-		</div>
+		</main>
 	);
 };
 export default Home;

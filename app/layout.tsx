@@ -22,7 +22,7 @@ export default async function RootLayout({
 	const session = await auth();
 	return (
 		<html lang="en">
-			<body className={poppins.className}>
+			<body className={`${poppins.className} container mx-auto`}>
 				<Navbar user={session?.user!} />
 				{children}
 			</body>
