@@ -26,6 +26,7 @@ const Product = ({
 					description,
 					price,
 					image,
+					id,
 				},
 			}}
 			className="cursor-pointer"

@@ -1,3 +1,4 @@
+import AddCart from "@/app/components/AddCart";
 import { priceFormatter } from "@/utils/priceFormat";
 import Image from "next/image";
 
@@ -7,6 +8,8 @@ interface Props {
 		price: number;
 		image: string;
 		description: string;
+		id: string;
+		quantity?: number | 1;
 	};
 }
 const ProductDetails = ({ searchParams }: Props) => {
@@ -23,9 +26,7 @@ const ProductDetails = ({ searchParams }: Props) => {
 						{priceFormatter(price)}
 					</p>
 				</div>
-				<button className="w-full text-white my-12 font-medium px-7 py-2 rounded-lg bg-sky-500 self-start hover:opacity-70">
-					Add to cart
-				</button>
+				<AddCart {...searchParams} />
 			</div>
 		</div>
 	);
