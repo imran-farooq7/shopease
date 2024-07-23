@@ -17,8 +17,11 @@ const Cart = () => {
 					animate={{ scale: 1, rotateZ: 0, opacity: 0.75 }}
 					initial={{ scale: 0.5, rotateZ: -10, opacity: 0 }}
 					exit={{ scale: 0.5, rotateZ: -10, opacity: 0 }}
-					className="flex flex-col items-center text-2xl font-medium"
+					className="flex flex-col items-center gap-3 text-2xl font-medium"
 				>
+					<button className="text-sm font-medium" onClick={() => toggleCart()}>
+						Back to store 🏃
+					</button>
 					<h1>Ohhh...it's empty ☹️</h1>
 					<Image
 						src={"/container.png"}
@@ -83,7 +86,7 @@ const Cart = () => {
 			<motion.div
 				onClick={(e: Event) => e.stopPropagation()}
 				layout
-				className="absolute bg-white right-0 w-1/3 h-screen p-12 overflow-y-scroll text-gray-700"
+				className="absolute bg-white right-0 w-full lg:w-1/3 h-screen p-12 overflow-y-scroll text-gray-700"
 			>
 				{content}
 			</motion.div>
