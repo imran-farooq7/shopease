@@ -1,29 +1,48 @@
 "use client";
 import { useCartState } from "@/store/store";
 import { priceFormatter } from "@/utils/priceFormat";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
 const Cart = () => {
 	const { toggleCart, cart, removeCart, addCart } = useCartState();
+	const totalPrice = cart.reduce((acc, item) => {
+		return acc + item.price * item.quantity!;
+	}, 0);
 	let content: string | JSX.Element;
 	if (cart.length === 0) {
 		content = (
-			<div className="flex flex-col items-center text-2xl font-medium">
-				<h1>Ohhh...it's empty ☹️</h1>
-				<Image
-					src={"/container.png"}
-					width={100}
-					height={100}
-					alt="empty basket"
-				/>
-			</div>
+			<AnimatePresence>
+				<motion.div
+					animate={{ scale: 1, rotateZ: 0, opacity: 0.75 }}
+					initial={{ scale: 0.5, rotateZ: -10, opacity: 0 }}
+					exit={{ scale: 0.5, rotateZ: -10, opacity: 0 }}
+					className="flex flex-col items-center text-2xl font-medium"
+				>
+					<h1>Ohhh...it's empty ☹️</h1>
+					<Image
+						src={"/container.png"}
+						width={100}
+						height={100}
+						alt="empty basket"
+					/>
+				</motion.div>
+			</AnimatePresence>
 		);
 	} else {
 		content = (
-			<>
-				<h1>Here's is your shopping list 📃</h1>;
+			<motion.div
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0 }}
+			>
+				<h1>Here's is your shopping list 📃</h1>
 				{cart.map((item) => (
-					<div key={item.id} className="flex items-center py-4 gap-3">
+					<motion.div
+						layout
+						key={item.id}
+						className="flex items-center py-4 gap-3"
+					>
 						<Image
 							className="rounded-md h-24 object-cover"
 							src={item.image}
@@ -47,13 +66,13 @@ const Cart = () => {
 								{priceFormatter(item.price)}
 							</p>
 						</div>
-					</div>
+					</motion.div>
 				))}
+				<p>Total: {priceFormatter(totalPrice)}</p>
 				<button className="py-2 bg-teal-700 mt-4 w-full rounded-md text-white">
 					Checkout
 				</button>
-				;
-			</>
+			</motion.div>
 		);
 	}
 	return (
@@ -61,12 +80,13 @@ const Cart = () => {
 			onClick={() => toggleCart()}
 			className="fixed w-full h-screen left-0 top-0 bg-black/25 z-50"
 		>
-			<div
-				onClick={(e) => e.stopPropagation()}
+			<motion.div
+				onClick={(e: Event) => e.stopPropagation()}
+				layout
 				className="absolute bg-white right-0 w-1/3 h-screen p-12 overflow-y-scroll text-gray-700"
 			>
 				{content}
-			</div>
+			</motion.div>
 		</div>
 	);
 };
