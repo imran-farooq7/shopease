@@ -4,8 +4,10 @@ import { priceFormatter } from "@/utils/priceFormat";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
+import Checkout from "./Checkout";
 const Cart = () => {
-	const { toggleCart, cart, removeCart, addCart } = useCartState();
+	const { toggleCart, cart, removeCart, addCart, onCheckout, setCheckout } =
+		useCartState();
 	const totalPrice = cart.reduce((acc, item) => {
 		return acc + item.price * item.quantity!;
 	}, 0);
@@ -72,11 +74,17 @@ const Cart = () => {
 					</motion.div>
 				))}
 				<p>Total: {priceFormatter(totalPrice)}</p>
-				<button className="py-2 bg-teal-700 mt-4 w-full rounded-md text-white">
+				<button
+					onClick={() => setCheckout("checkout")}
+					className="py-2 bg-teal-700 mt-4 w-full rounded-md text-white"
+				>
 					Checkout
 				</button>
 			</motion.div>
 		);
+	}
+	if (onCheckout === "checkout") {
+		content = <Checkout />;
 	}
 	return (
 		<div

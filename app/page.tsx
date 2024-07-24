@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import Product from "./components/Product";
 
 const getProducts = async () => {
-	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 		apiVersion: "2024-06-20",
 	});
 	const products = await stripe.products.list();

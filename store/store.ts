@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-interface cartItem {
+export interface cartItem {
 	name: string;
 	id: string;
 	image: string;
@@ -14,11 +14,16 @@ interface cartStore {
 	addCart: (cartItem: cartItem) => void;
 	removeCart: (cartItem: cartItem) => void;
 	toggleCart: () => void;
+	paymentIntent: string;
+	setPaymentIntent: (paymentIntent: string) => void;
+	onCheckout: string;
+	setCheckout: (checkout: string) => void;
 }
 export const useCartState = create<cartStore>()(
 	persist(
 		(set) => ({
 			cart: [],
+			onCheckout: "cart",
 			isOpen: true,
 			addCart: (cartItem) =>
 				set((state) => {
@@ -74,6 +79,15 @@ export const useCartState = create<cartStore>()(
 					}
 				});
 			},
+			paymentIntent: "",
+			setPaymentIntent: (val) =>
+				set((state) => ({
+					paymentIntent: val,
+				})),
+			setCheckout: (val) =>
+				set((state) => ({
+					onCheckout: val,
+				})),
 		}),
 
 		{ name: "cart" }
