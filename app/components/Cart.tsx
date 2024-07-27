@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
 import Checkout from "./Checkout";
+import OrderConfirm from "./OrderConfirm";
 const Cart = () => {
 	const { toggleCart, cart, removeCart, addCart, onCheckout, setCheckout } =
 		useCartState();
@@ -84,7 +85,20 @@ const Cart = () => {
 		);
 	}
 	if (onCheckout === "checkout") {
-		content = <Checkout />;
+		content = (
+			<>
+				<button
+					className="text-sm font-medium mx-auto block mb-4"
+					onClick={() => setCheckout("cart")}
+				>
+					Back to cart 🛒
+				</button>
+				<Checkout />
+			</>
+		);
+	}
+	if (onCheckout === "success") {
+		content = <OrderConfirm />;
 	}
 	return (
 		<div

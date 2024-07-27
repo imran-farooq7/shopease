@@ -1,10 +1,14 @@
-import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
 import { useCartState } from "@/store/store";
-import React, { useEffect, useState } from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import CheckoutForm from "./CheckoutForm";
+import { FiSettings } from "react-icons/fi";
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY as string);
+const stripePromise = loadStripe(
+	process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+);
 
 const Checkout = () => {
 	const cartState = useCartState();
@@ -12,7 +16,6 @@ const Checkout = () => {
 	const [clientSecret, setClientSecret] = useState("");
 
 	const createCustomerPaymentIntent = async () => {
-		console.log("Creating customer payment intent");
 		const res = await fetch("/api/create-payment-intent", {
 			method: "POST",
 			headers: {
@@ -30,13 +33,37 @@ const Checkout = () => {
 		setClientSecret(data.paymentIntent.client_secret);
 		cartState.setPaymentIntent(data.paymentIntent.id);
 	};
-	console.log(clientSecret, "client secret");
 
 	useEffect(() => {
 		createCustomerPaymentIntent();
 	}, []);
-
-	return <div>Checkout</div>;
+	const options: StripeElementsOptions = {
+		clientSecret,
+		appearance: {
+			theme: "stripe",
+			labels: "floating",
+		},
+	};
+	return (
+		<div>
+			{!clientSecret && (
+				<div className="flex items-center w-full justify-center">
+					<p className="mr-3">Your order is being processed</p>
+					<FiSettings
+						size={24}
+						className="animate-spin text-center text-black"
+					/>
+				</div>
+			)}
+			{clientSecret && (
+				<div>
+					<Elements stripe={stripePromise} options={options}>
+						<CheckoutForm clientSecret={clientSecret} />
+					</Elements>
+				</div>
+			)}
+		</div>
+	);
 };
 
-export default React.memo(Checkout);
+export default Checkout;

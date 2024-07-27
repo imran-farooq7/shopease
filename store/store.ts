@@ -17,6 +17,7 @@ interface cartStore {
 	paymentIntent: string;
 	setPaymentIntent: (paymentIntent: string) => void;
 	onCheckout: string;
+	emptyCart: () => void;
 	setCheckout: (checkout: string) => void;
 }
 export const useCartState = create<cartStore>()(
@@ -88,6 +89,12 @@ export const useCartState = create<cartStore>()(
 				set((state) => ({
 					onCheckout: val,
 				})),
+			emptyCart: () =>
+				set((state) => {
+					return {
+						cart: [],
+					};
+				}),
 		}),
 
 		{ name: "cart" }
