@@ -17,7 +17,6 @@ interface Props {
 }
 const ProductDetails = ({ searchParams, params }: Props) => {
 	const { image, name, price, description } = searchParams;
-	console.log(params.id, "Product Details page id");
 	return (
 		<div className="flex flex-col md:flex-row justify-between gap-12 p-12 text-gray-700">
 			<Image src={image} alt={name} width={400} height={400} />
@@ -30,7 +29,7 @@ const ProductDetails = ({ searchParams, params }: Props) => {
 						{priceFormatter(price)}
 					</p>
 				</div>
-				<AddCart {...searchParams} />
+				<AddCart {...searchParams} id={params.id} />
 			</div>
 		</div>
 	);
