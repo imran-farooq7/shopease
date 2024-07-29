@@ -24,10 +24,15 @@ export async function POST(req: NextRequest) {
 			process.env.STRIPE_WEBHOOK_SECRET as string
 		);
 	} catch (error) {
-		return NextResponse.json(
-			{ error: `Webhook Error: stripe webhook error ` },
-			{ status: 400 }
-		);
+		if (error instanceof Stripe.errors.StripeAPIError) {
+			console.log(error.message, error.statusCode);
+			return NextResponse.json(
+				{ error: `Webhook Error: stripe webhook error ${error.cause} ` },
+				{ status: 400 }
+			);
+		} else {
+			return NextResponse.json("stripe error");
+		}
 	}
 	if (event.type === "charge.succeeded") {
 		const charge = event.data.object as Stripe.Charge;
