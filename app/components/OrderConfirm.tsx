@@ -1,16 +1,17 @@
 "use client";
 
-import { useCartState } from "@/store/store";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useCartStore } from "@/store/CartProvider";
 
 const OrderConfirm = () => {
-	const cart = useCartState();
+	const { setPaymentIntent, emptyCart, setCheckout, toggleCart } =
+		useCartStore();
 	useEffect(() => {
-		cart.setPaymentIntent("");
-		cart.emptyCart();
+		setPaymentIntent("");
+		emptyCart();
 	}, []);
 
 	return (
@@ -32,8 +33,8 @@ const OrderConfirm = () => {
 				<Link href={"/dashboard"}>
 					<button
 						onClick={() => {
-							cart.setCheckout("cart");
-							cart.toggleCart();
+							setCheckout("cart");
+							toggleCart();
 						}}
 					>
 						Check your order

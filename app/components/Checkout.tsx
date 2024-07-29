@@ -1,17 +1,17 @@
-import { useCartState } from "@/store/store";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import CheckoutForm from "./CheckoutForm";
 import { FiSettings } from "react-icons/fi";
+import { useCartStore } from "@/store/CartProvider";
 
 const stripePromise = loadStripe(
 	process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
 
 const Checkout = () => {
-	const cartState = useCartState();
+	const { cart, paymentIntent, setPaymentIntent } = useCartStore();
 	const router = useRouter();
 	const [clientSecret, setClientSecret] = useState("");
 
@@ -22,8 +22,8 @@ const Checkout = () => {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
-				cart: cartState.cart,
-				payment_intent_id: cartState.paymentIntent,
+				cart: cart,
+				payment_intent_id: paymentIntent,
 			}),
 		});
 		if (res.status === 403) {
@@ -31,7 +31,7 @@ const Checkout = () => {
 		}
 		const data = await res.json();
 		setClientSecret(data.paymentIntent.client_secret);
-		cartState.setPaymentIntent(data.paymentIntent.id);
+		setPaymentIntent(data.paymentIntent.id);
 	};
 
 	useEffect(() => {

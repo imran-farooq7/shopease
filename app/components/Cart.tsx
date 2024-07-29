@@ -1,14 +1,14 @@
 "use client";
-import { useCartState } from "@/store/store";
 import { priceFormatter } from "@/utils/priceFormat";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { IoAddCircle, IoRemoveCircle } from "react-icons/io5";
 import Checkout from "./Checkout";
 import OrderConfirm from "./OrderConfirm";
+import { useCartStore } from "@/store/CartProvider";
 const Cart = () => {
 	const { toggleCart, cart, removeCart, addCart, onCheckout, setCheckout } =
-		useCartState();
+		useCartStore();
 	const totalPrice = cart.reduce((acc, item) => {
 		return acc + item.price * item.quantity!;
 	}, 0);

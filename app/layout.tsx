@@ -3,6 +3,7 @@ import "./globals.css";
 import { Poppins } from "next/font/google";
 import Navbar from "./components/Navbar";
 import { auth } from "@/auth";
+import { CartStoreProvider } from "@/store/CartProvider";
 
 const poppins = Poppins({
 	weight: ["300", "400", "700"],
@@ -23,8 +24,10 @@ export default async function RootLayout({
 	return (
 		<html lang="en" data-theme="light">
 			<body className={`${poppins.className} container mx-auto`}>
-				<Navbar user={session?.user!} />
-				{children}
+				<CartStoreProvider>
+					<Navbar user={session?.user!} />
+					{children}
+				</CartStoreProvider>
 			</body>
 		</html>
 	);

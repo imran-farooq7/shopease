@@ -1,6 +1,6 @@
 "use client";
 
-import { useCartState } from "@/store/store";
+import { useCartStore } from "@/store/CartProvider";
 import { priceFormatter } from "@/utils/priceFormat";
 import {
 	PaymentElement,
@@ -8,7 +8,6 @@ import {
 	useStripe,
 } from "@stripe/react-stripe-js";
 import { FormEvent, useEffect, useState } from "react";
-import Loader from "./Loader";
 interface Props {
 	clientSecret: string;
 }
@@ -16,9 +15,9 @@ interface Props {
 const CheckoutForm = ({ clientSecret }: Props) => {
 	const stripe = useStripe();
 	const elements = useElements();
-	const cartStore = useCartState();
+	const { cart, setCheckout } = useCartStore();
 	const [isLoading, setIsLoading] = useState(false);
-	const totalPrice = cartStore.cart.reduce((acc, item) => {
+	const totalPrice = cart.reduce((acc, item) => {
 		return acc + item.price * item.quantity!;
 	}, 0);
 	useEffect(() => {
@@ -39,7 +38,7 @@ const CheckoutForm = ({ clientSecret }: Props) => {
 			redirect: "if_required",
 		});
 		if (!res.error) {
-			cartStore.setCheckout("success");
+			setCheckout("success");
 			setIsLoading(false);
 		} else {
 			console.log(res.error);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCartState } from "@/store/store";
+import { useCartStore } from "@/store/CartProvider";
 
 interface Props {
 	name: string;
@@ -11,7 +11,7 @@ interface Props {
 	quantity?: number | 1;
 }
 const AddCart = ({ id, image, name, price, quantity }: Props) => {
-	const { addCart } = useCartState();
+	const { addCart } = useCartStore();
 	return (
 		<button
 			className="w-full text-white my-12 font-medium px-7 py-2 rounded-lg bg-sky-500 self-start hover:opacity-70"
