@@ -1,7 +1,6 @@
 import { priceFormatter } from "@/utils/priceFormat";
 import Image from "next/image";
 import Link from "next/link";
-import { format } from "path";
 
 interface Props {
 	product: {
