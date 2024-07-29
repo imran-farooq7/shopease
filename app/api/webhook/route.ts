@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 	if (event.type === "charge.succeeded") {
 		const charge = event.data.object as Stripe.Charge;
 		if (typeof charge.payment_intent === "string") {
-			await prisma.order.update({
+			const updatedOrder = await prisma.order.update({
 				where: {
 					paymentIntentId: charge.payment_intent,
 				},
@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
 					status: "complete",
 				},
 			});
+			console.log(updatedOrder);
 		}
 	}
 
