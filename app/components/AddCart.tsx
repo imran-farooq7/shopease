@@ -17,7 +17,6 @@ const AddCart = ({ id, image, name, price, quantity }: Props) => {
 		<button
 			className="w-full text-white my-12 font-medium px-7 py-2 rounded-lg bg-sky-500 self-start hover:opacity-70"
 			onClick={() => {
-				console.log(id, "from  addCart action and component");
 				addCart({
 					id,
 					name,

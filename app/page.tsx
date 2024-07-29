@@ -27,7 +27,6 @@ const Home = async () => {
 	return (
 		<main className="grid grid-cols-fluid gap-12 justify-items-center md:justify-items-start mt-6">
 			{products.map((product) => {
-				console.log(product.id, "from home page");
 				return <Product product={product} key={product.id} />;
 			})}
 		</main>

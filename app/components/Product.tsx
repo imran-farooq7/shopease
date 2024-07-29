@@ -16,7 +16,6 @@ interface Props {
 const Product = ({
 	product: { name, image, price, description, id },
 }: Props) => {
-	console.log(id, "Product id from  product page");
 	return (
 		<Link
 			href={{
