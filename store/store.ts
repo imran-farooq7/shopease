@@ -109,18 +109,23 @@ export const createCartStore = () => {
 				isOpen: false,
 				addCart: (cartItem) =>
 					set((state) => {
+						console.log(cartItem.id);
+						console.log(state.cart, "cart state");
 						const existingItem = state.cart.find(
 							(item) => item.id === cartItem.id
 						);
+						console.log(existingItem, "existing item id");
 						if (existingItem) {
 							const updateCart = state.cart.map((item) => {
+								console.log(item.id, "item id from update cart");
+								console.log(cartItem.id, "cart item id from update cart");
 								if (item.id === cartItem.id) {
 									return {
 										...item,
 										quantity: item.quantity! + 1,
 									};
 								}
-								// console.log(item, "from cart start");
+								console.log(item, "from cart start");
 								return item;
 							});
 							return {
