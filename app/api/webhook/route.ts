@@ -21,11 +21,11 @@ export async function POST(req: NextRequest) {
 		event = stripe.webhooks.constructEvent(
 			body,
 			sig,
-			process.env.STRIPE_WEBHOOK_SECRET!
+			process.env.STRIPE_WEBHOOK_SECRET as string
 		);
 	} catch (error) {
 		return NextResponse.json(
-			{ error: `Webhook Error: stripe webhook error` },
+			{ error: `Webhook Error: stripe webhook error ` },
 			{ status: 400 }
 		);
 	}
