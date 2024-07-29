@@ -2,7 +2,7 @@
 
 import { User } from "next-auth";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useCartState } from "@/store/store";
 import Cart from "./Cart";
@@ -47,13 +47,37 @@ const Navbar = ({ user }: Props) => {
 				<li>
 					{!user && <button onClick={() => signIn("google")}>Sign In</button>}
 					{user && (
-						<Image
-							src={user.image!}
-							width={40}
-							height={40}
-							alt={user.name!}
-							className="rounded-full"
-						/>
+						<div className="flex gap-3 items-center cursor-pointer dropdown dropdown-bottom dropdown-left">
+							<Image
+								src={user.image!}
+								width={40}
+								height={40}
+								alt={user.name!}
+								className="rounded-full"
+								tabIndex={0}
+							/>
+							<ul
+								tabIndex={0}
+								className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-4 shadow"
+							>
+								<li className="my-3">
+									<Link
+										href={"/dashboard"}
+										className="hover:bg-base-300 p-4 rounded-md"
+									>
+										Orders
+									</Link>
+								</li>
+								<li>
+									<button
+										className="bg-red-400 px-6 py-3 rounded-lg text-white text-sm hover:bg-red-600"
+										onClick={() => signOut()}
+									>
+										Sign Out
+									</button>
+								</li>
+							</ul>
+						</div>
 					)}
 				</li>
 			</ul>

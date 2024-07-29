@@ -48,7 +48,7 @@ const Checkout = () => {
 		<div>
 			{!clientSecret && (
 				<div className="flex items-center w-full justify-center">
-					<p className="mr-3">Your order is being processed</p>
+					<p className="mr-2">Your order is being processed</p>
 					<FiSettings
 						size={24}
 						className="animate-spin text-center text-black"
