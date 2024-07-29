@@ -11,10 +11,13 @@ interface Props {
 		id: string;
 		quantity?: number | 1;
 	};
+	params: {
+		id: string;
+	};
 }
-const ProductDetails = ({ searchParams }: Props) => {
-	const { image, name, price, description, id } = searchParams;
-	console.log(id, "Product Details page id");
+const ProductDetails = ({ searchParams, params }: Props) => {
+	const { image, name, price, description } = searchParams;
+	console.log(params.id, "Product Details page id");
 	return (
 		<div className="flex flex-col md:flex-row justify-between gap-12 p-12 text-gray-700">
 			<Image src={image} alt={name} width={400} height={400} />
